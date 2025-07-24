@@ -1,0 +1,10 @@
+
+Select 
+X.*
+From Erp_InventoryReceiptItem iri with(nolock)
+Left Join Erp_InventoryReceipt ir with(nolock) On iri.InventoryReceiptId=ir.RecId
+Outer Apply
+(
+	Select * From dbo.fnGetSubContractorCostTable(iri.RecId,0)
+) X
+Where iri.PartyNo In ('ST/406846') and ir.ReceiptType In (11)
